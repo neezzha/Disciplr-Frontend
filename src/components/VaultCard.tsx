@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { Text } from './Text';
 import { VaultProgressBar } from './VaultProgressBar';
 import { CountdownDeadline } from './CountdownDeadline';
+import { Badge } from './Badge';
+import type { BadgeTone } from './Badge';
 import type { VaultStatus } from '../types/vault';
 
 export type { VaultStatus };
@@ -39,23 +41,23 @@ export function deadlineUrgency(deadline: string, now: Date | number = Date.now(
   return 'safe';
 }
 
-const URGENCY_BADGE_CONFIG = {
+const URGENCY_BADGE_CONFIG: Record<
+  Exclude<UrgencyTier, 'safe'>,
+  { label: string; tone: BadgeTone; ariaLabel: string }
+> = {
   critical: {
     label: 'Expires soon!',
-    bg: 'var(--danger-transparent)',
-    fg: 'var(--danger)',
+    tone: 'danger',
     ariaLabel: 'Critical: expires within 24 hours',
   },
   soon: {
     label: 'Due soon',
-    bg: 'var(--warning-transparent)',
-    fg: 'var(--warning)',
+    tone: 'warning',
     ariaLabel: 'Deadline approaching: due within 7 days',
   },
   expired: {
     label: 'Overdue',
-    bg: 'var(--danger-transparent)',
-    fg: 'var(--danger)',
+    tone: 'danger',
     ariaLabel: 'Overdue: deadline has passed',
   },
 } as const;
@@ -64,23 +66,9 @@ function UrgencyBadge({ tier }: { tier: UrgencyTier }) {
   if (tier === 'safe') return null;
   const config = URGENCY_BADGE_CONFIG[tier];
   return (
-    <span
-      aria-label={config.ariaLabel}
-      style={{
-        background: config.bg,
-        color: config.fg,
-        border: `1px solid ${config.fg}`,
-        borderRadius: 'var(--radius-full)',
-        padding: '2px 8px',
-        fontSize: 11,
-        fontWeight: 600,
-        whiteSpace: 'nowrap',
-        display: 'inline-flex',
-        alignItems: 'center',
-      }}
-    >
+    <Badge tone={config.tone} size="sm" aria-label={config.ariaLabel}>
       {config.label}
-    </span>
+    </Badge>
   );
 }
 
