@@ -1,9 +1,8 @@
 node_modules
 dist
 *.local
-.env
-.env.*
 .DS_Store
 coverage
 
 # Working on it 
+config.bat

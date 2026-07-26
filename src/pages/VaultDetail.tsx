@@ -326,6 +326,9 @@ export default function VaultDetail() {
           style={{
             display: "flex",
             justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
+            gap: "0.5rem",
             marginTop: "0.5rem",
           }}
         >
@@ -343,9 +346,27 @@ export default function VaultDetail() {
               {statusCfg.label}
             </Text>
           )}
-          <Text role="caption" as="span" style={{ color: "var(--muted)" }}>
-            Deadline {fmtDate(vault.deadline)}
-          </Text>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              flexWrap: "wrap",
+            }}
+          >
+            <Text role="caption" as="span" style={{ color: "var(--muted)" }}>
+              Deadline {fmtDate(vault.deadline)}
+            </Text>
+            {canExportDeadline ? (
+              <button
+                type="button"
+                onClick={handleCalendarExport}
+                style={actionBtn("var(--accent)")}
+              >
+                Add to calendar
+              </button>
+            ) : null}
+          </div>
         </div>
       </Card>
 
