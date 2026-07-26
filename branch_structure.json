@@ -1,0 +1,18 @@
+{
+  "default_branch": "main",
+  "branches": [
+    "fix/632-vault-calendar-export",
+    "main",
+    "origin"
+  ],
+  "parent": {
+    "fix/632-vault-calendar-export": "main",
+    "main": null,
+    "origin": "main"
+  },
+  "order": [
+    "main",
+    "fix/632-vault-calendar-export",
+    "origin"
+  ]
+}
